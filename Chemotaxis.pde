@@ -1,4 +1,5 @@
 Taxis [] dots, dots1;
+Car [] bobs;
 void setup(){
  size(500, 500);
 
@@ -7,16 +8,26 @@ void setup(){
  for(int i = 0; i < dots.length;i++){
    dots[i] = new Taxis();
  }
+  bobs = new Car[500];
+  for(int i = 0; i < bobs.length; i++){
+  bobs[i] = new Car(i*2,(int)(Math.random()*500), i+(int)(Math.random()*10),(int)(Math.random()*20)); 
+  }
 }
 
 void draw(){
   fill(0);
-  rect(0, 0, 500, 500);
+  rect(250, 250, 200, 200, 50);
+  fill(255);
+  rect(250, 250, 100, 100, 50);
 for(int i = 0; i < dots.length;i++){
   dots[i].move();
   dots[i].colour();
   dots[i].show();
 }
+ for(int i =0; i < bobs.length;i++){
+  bobs[i].move();
+  bobs[i].show();
+  }
   
 }
 
@@ -99,14 +110,49 @@ class Taxis{
        rgb = color((int)(Math.random()*255),(int)(Math.random()*25), (int)(Math.random()*255),100); 
   
   }
-     }
+
+  }
    
  }
   void show(){
-  
+   
    fill(rgb);
    noStroke();
    ellipse(myX, myY, size, size); 
   }
   
 }
+class Car{
+  color myC;
+  float myX, myY, myXspeed;
+  
+  Car(){
+    myC = color(255);
+    myX = width/2;
+    myY = height/2;
+    myXspeed = 1;
+  }
+  Car(color c, float x,float y, float s){
+   myC = c;
+   myX = x;
+   myY = y;
+   myXspeed = s;
+  }
+
+
+  
+  void show(){
+   rectMode(CENTER);
+   fill(myC, 0, 0);
+   rect(myX, myY, 20, 10);
+  }
+  
+  void move(){
+   myX += myXspeed;
+   myY += myXspeed;
+   if(myX > width){
+     myX = 0;
+   }
+  
+  }
+}//end Car class
